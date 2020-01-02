@@ -1,5 +1,5 @@
-# douyindownload-miniapp
-##### mosousuo.com 抖音视频去水印微信小程序 记得替换你的appid
+# DouYin_QuShuiYing
+##### 抖音视频去水印微信小程序 记得替换你的appid
 ### 解析接口是普通接口只能解析短视频
 #### 其中用到了读取剪辑版数据和相册保存
 ##### 剪辑版数据
@@ -35,7 +35,6 @@ wx.saveVideoToPhotosAlbum({
    }
 })
 ```
-###### git源码地址: [https://github.com/ithere/douyindownload-miniapp](https://github.com/ithere/douyindownload-miniapp)
 
 ![mosousuo](https://github.com/ithere/douyindownload-miniapp/blob/master/mosousuo_1.png)
 ![mosousuo](https://github.com/ithere/douyindownload-miniapp/blob/master/qrcode_ms.jpg)
