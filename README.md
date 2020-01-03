@@ -36,5 +36,5 @@ wx.saveVideoToPhotosAlbum({
 })
 ```
 
-![AckyLin](http://github.com/ithere/douyindownload-miniapp/blob/master/mosousuo_1.png)
-![AckyLin](http://github.com/ithere/douyindownload-miniapp/blob/master/qrcode_ms.jpg)
+![AckyLin](https://github.com/AckyLin/DouYin_QuShuiYing/blob/master/1.png)
+![AckyLin](https://github.com/AckyLin/DouYin_QuShuiYing/blob/master/2.png)
