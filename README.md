@@ -4,11 +4,11 @@
 #### 其中用到了读取剪辑版数据和相册保存
 ### 注意！！！！务必在微信小程序后台添加以下域名
 ##### request合法域名
-https://aweme.snssdk.com
-https://v.ataobao.vip
+https://aweme.snssdk.com\
+https://v.ataobao.vip\
 https://www.i847.cn
 ##### downloadFile合法域名
-https://aweme.snssdk.com
+https://aweme.snssdk.com\
 https://www.i847.cn
 
 ##### 剪辑版数据
