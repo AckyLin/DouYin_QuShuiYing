@@ -6,10 +6,10 @@
 ##### request合法域名
 https://aweme.snssdk.com \
 https://v.ataobao.vip \
-https://www.i847.cn
+https://51.vpaywu.cn
 ##### downloadFile合法域名
 https://aweme.snssdk.com \
-https://www.i847.cn
+https://51.vpaywu.cn
 
 ##### 剪辑版数据
 ```
