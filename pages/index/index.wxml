@@ -55,7 +55,7 @@
       </button>
     </view>
     <button bindgetuserinfo="getUserInfo" class="parsing" hoverClass="parsing-btn-hover" openType="getUserInfo">一键去除水印</button>
-    <ad unitId="adunit-c0c3a4f8e7555786"></ad>
+    <!-- <ad unitId="adunit-c0c3a4f8e7555786"></ad> -->
     <view class="faq">
       <view class="faq-header">
         <text class="faq-header-title">常见问题</text>

@@ -30,15 +30,18 @@ Page({
         })
     },
     download: function () {
-      var t = this, e = 'https://www.i847.cn/qushuiyin/down?url='+this.data.videoUrl 
-        // var t = this, e = t.data.dataUrl // o.default + '/downVideo.php?url=' + this.data.dataUrl
+      var t = this, 
+      e = 'https://51.vpaywu.cn/dy/down?url='+this.data.videoUrl;
+      var fileName = new Date().valueOf();
+      var filePath = wx.env.USER_DATA_PATH + '/' + fileName + '.mp4';
         wx.showLoading({
             title: '保存中 0%'
         }), (n = wx.downloadFile({
             url: e,
+          filePath: filePath,
             success: function (o) {
                 wx.hideLoading(), wx.saveVideoToPhotosAlbum({
-                    filePath: o.tempFilePath,
+                  filePath: o.filePath,
                     success: function (o) {
                         t.showToast('保存成功', 'success'), setTimeout(function () {
                             wx.setClipboardData({
@@ -55,7 +58,8 @@ Page({
             fail: function (o) {
                 n = null, wx.hideLoading(), t.showToast('下载失败')
             }
-        })).onProgressUpdate(function (o) {
+        }))
+        .onProgressUpdate(function (o) {
             100 === o.progress ? '' : wx.showLoading({
                 title: '保存中 ' + o.progress + '%'
             })
@@ -78,7 +82,9 @@ Page({
                             cancelText: '取消',
                             success: function (o) {
                                 o.confirm ? (wx.openSetting({
-                                    success: function (o) { }
+                                    success: function (o) {
+                                      t.download();
+                                     }
                                 })) : ''
                             }
                         })
