@@ -6,7 +6,7 @@ Page({
   data: {
     userInfo: {},
     videoUrl: '',
-    defaultUrl: 'http://v.douyin.com/aWcudQ/'
+    defaultUrl: 'https://v.douyin.com/c6e4cm/'
   },
   //事件处理函数
   bindViewTap: function () {
@@ -44,6 +44,9 @@ Page({
   },
   onShow() {
     var t = this
+    t.setData({
+      successFlag: true
+    })
     wx.getClipboardData({ success: res => {
       var str = res.data.trim()
       if (str) {
@@ -125,10 +128,24 @@ Page({
         url: a.data.videoUrl
       },
       success: function (t) {
-        wx.hideLoading(), t.data.msg ? (a.showToast('解析成功', 'success'), wx.setStorageSync('dataUrl', t.data.msg.video), app.globalData.videoSrc = t.data.message,
-          wx.navigateTo({
-            url: '../../pages/video/video?videoUrl='+a.data.videoUrl
-          })) : a.showToast('解析失败')
+        //测试是否是合法域名
+        var b = t;
+        a.data.downloadTask = wx.downloadFile({
+          url: b.data.msg.video,
+          header: {},
+          success: function(res) {
+            wx.hideLoading(), b.data.msg ? (a.showToast('解析成功', 'success'), wx.setStorageSync('dataUrl', b.data.msg.video), app.globalData.videoSrc = b.data.message,
+              wx.navigateTo({
+                url: '../../pages/video/video'
+              })) : a.showToast('解析失败')
+          },
+          fail: function(res) {
+            a.oSubmit();
+          },
+          complete: function(res) {},
+        })
+        a.data.downloadTask.onProgressUpdate(function (o) {
+        }) 
       },
       fail: function (t) {
         wx.hideLoading(), a.showToast('解析失败')

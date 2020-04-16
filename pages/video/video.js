@@ -1,13 +1,15 @@
 //获取应用实例
 var app = getApp(), n = ''
+const fsm = wx.getFileSystemManager();
+const basepath = `${wx.env.USER_DATA_PATH}`
 Page({
     data: {
         videoSrc: '',
         dataUrl: '',
-        videoUrl: ''
+        videoUrl: '',
+        myTime:""
     },
   onLoad: function (options) {
-        this.getdataUrl('dataUrl')
         this.setData({
             videoSrc: app.globalData.videoSrc,
             dataUrl: this.getdataUrl('dataUrl'),
@@ -31,17 +33,14 @@ Page({
     },
     download: function () {
       var t = this, 
-      e = 'https://51.vpaywu.cn/dy/down?url='+this.data.videoUrl;
-      var fileName = new Date().valueOf();
-      var filePath = wx.env.USER_DATA_PATH + '/' + fileName + '.mp4';
+      e = this.data.dataUrl;
         wx.showLoading({
             title: '保存中 0%'
         }), (n = wx.downloadFile({
             url: e,
-          filePath: filePath,
             success: function (o) {
                 wx.hideLoading(), wx.saveVideoToPhotosAlbum({
-                  filePath: o.filePath,
+                  filePath: o.tempFilePath,
                     success: function (o) {
                         t.showToast('保存成功', 'success'), setTimeout(function () {
                             wx.setClipboardData({
@@ -49,17 +48,20 @@ Page({
                             })
                             t.goBack()
                         }, 1e3)
+                      t.delFile();//删除临时文件
                     },
                     fail: function (o) {
                         t.showToast('保存失败')
                     }
                 })
+
             },
             fail: function (o) {
                 n = null, wx.hideLoading(), t.showToast('下载失败')
             }
         }))
         .onProgressUpdate(function (o) {
+          debugger
             100 === o.progress ? '' : wx.showLoading({
                 title: '保存中 ' + o.progress + '%'
             })
@@ -92,6 +94,28 @@ Page({
                 })
             }
         })
+    },
+    delFile: function(){
+      fsm.readdir({
+        dirPath: basepath, /// 获取文件列表
+        success(res) {
+          res.files.forEach((val) => { // 遍历文件列表里的数据
+            if (val.indexOf("mp4") >= 0){
+              console.log(val)
+              fsm.unlink({
+                filePath: basepath + '/' + val
+              });
+            }
+          })
+        },
+        fail(err) {
+          console.log(err)
+        },
+        complete() {
+          console.log('complete')
+        }
+
+      })
     },
     showToast: function (o) {
         var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 'none', n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 1500
